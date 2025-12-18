@@ -6,7 +6,7 @@ st.set_page_config(page_title="AI 鹏鹏助手", page_icon="👦", layout="wide"
 st.title("👦 你的 AI 好友：鹏鹏")
 
 # 选择人设
-    selected_role = st.selectbox(
+selected_role = st.selectbox(
         "选择 AI 的角色",
         # 把 "鹏鹏" 放在第一个，他就是默认值
         ["鹏鹏", "猫娘女仆", "Python 编程专家", "雅思口语老师", "暴躁的厨师长"],
@@ -86,4 +86,5 @@ if user_input := st.chat_input("说点什么..."):
             st.error(f"出错啦: {e}")
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})
+
 
