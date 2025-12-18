@@ -9,8 +9,12 @@ st.title("🤖 超级 AI 助手")
 with st.sidebar:
     st.header("⚙️ 配置面板")
     
-    # 选择 API Key (可以在网页上填，不用改代码了，更安全)
-    api_key = st.text_input("请输入硅基流动 API Key", type="password", value="sk-这里填你的Key")
+    # 先尝试从 Streamlit 的秘密保险箱里获取 Key
+    if "SILICON_KEY" in st.secrets:
+        api_key = st.secrets["SILICON_KEY"] # 如果保险箱里有，直接用，不显示输入框
+    else:
+        # 如果保险箱里没找到（比如在本地运行且没配置），就显示输入框让用户填
+        api_key = st.text_input("请输入硅基流动 API Key", type="password")
     
     # 选择人设 (关键功能！)
     selected_role = st.selectbox(
@@ -94,5 +98,6 @@ if user_input := st.chat_input("说点什么..."):
             
         except Exception as e:
             st.error(f"出错啦: {e}")
+
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})
